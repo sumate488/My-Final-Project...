@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY HOBBIES - Home</title>
+<link rel="stylesheet" href="Homestyle.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="progressBar"></div>
+
+<nav class="navbar" id="navbar">
+  <div class="logo">MY HOBBIES - HOME</div>
+  <div class="nav-links" id="navLinks">
+    <a href="Home.html" class="active">HoMe</a>
+    <a href="Reading.html">ReAdInG</a>
+    <a href="Listening to podcasts.html">LiStEnInG To PoDcAsTs</a>
+    <a href="Traveling.html">TrAvElInG</a>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="darkModeToggle">
+    <span class="slider"></span>
+  </label>
+</nav>
+
+<div class="hero">
+  <canvas id="particles-js"></canvas>
+  <div class="hero-content" id="hero-content">
+    <h1>Welcome to My Hobby World</h1>
+    <p>Explore the things I love — Reading, Listening to Podcasts, and Traveling. These hobbies help me grow, relax, and discover the world.</p>
+    <button class="see-more" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">See More ↓</button>
+  </div>
+</div>
+
+<section id="about" class="section">
+  <h2>About Me</h2>
+  <p>A quick look at what inspires my hobbies.</p>
+  <div class="about-box">
+    <textarea id="typing-text" class="typing-area" readonly></textarea>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Explore Our Topics</h2>
+  <div class="features">
+    <div class="feature-card">
+      <img src="reading.webp" alt="Reading Books">
+      <div class="content">
+        <h3>Reading Books</h3>
+        <p>Reading expands my imagination and fills my mind with new ideas.</p>
+        <a href="Reading.html">Read More</a>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <img src="podcast.webp" alt="Listening to Podcasts">
+      <div class="content">
+        <h3>Listening to Podcasts</h3>
+        <p>Podcasts keep me engaged, informed, and inspired wherever I am.</p>
+        <a href="Listening to podcasts.html">Read More</a>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <img src="traveling.webp" alt="Traveling">
+      <div class="content">
+        <h3>Traveling</h3>
+        <p>I love exploring new cultures, foods, places, and experiences.</p>
+        <a href="Traveling.html">Read More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MINI GAME SECTION ================= -->
+
+<section class="section">
+  <h2>🎯 Mini Game: Catch The Hobby Icon</h2>
+  <p>Click the floating icon before time runs out!</p>
+
+  <div class="game-container">
+    <div class="game-stats">
+      <span>Score: <strong id="score">0</strong></span>
+      <span>Time: <strong id="time">30</strong>s</span>
+      <span>High Score: <strong id="highScore">0</strong></span>
+    </div>
+
+    <div class="game-area" id="gameArea">
+      <div class="target" id="target">📚</div>
+    </div>
+
+    <div class="game-controls">
+      <button id="startGame">Start Game</button>
+      <button id="resetGame">Reset</button>
+    </div>
+
+    <p id="gameMessage" class="game-message"></p>
+  </div>
+</section>
+
+<!-- ================= END MINI GAME ================= -->
+
+<footer>
+  &copy; 2025 My Hobby Website | Thanawat Chainarongsakul
+</footer>
+
+<button id="backToTop" title="Go to top">↑</button>
+
+<audio id="backgroundMusic" loop autoplay>
+  <source src="lofi.mp3" type="audio/mpeg">
+</audio>
+
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.min.js"></script>
+
+<script>
+
+// Navbar scroll
+const navbar=document.getElementById("navbar");
+let lastScroll=0;
+window.addEventListener("scroll", ()=>{
+  let currentScroll=window.pageYOffset;
+  if(currentScroll>lastScroll && currentScroll>100){ navbar.classList.add("hide"); }
+  else { navbar.classList.remove("hide"); }
+  lastScroll=currentScroll;
+  navbar.classList.toggle("scrolled", currentScroll>70);
+
+  document.getElementById("backToTop").style.display=(currentScroll>200)?"block":"none";
+  let scrollHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  document.getElementById("progressBar").style.width=(currentScroll/scrollHeight)*100+"%";
+});
+
+// Hero fade
+window.addEventListener("load", ()=>{ 
+  setTimeout(()=>document.getElementById('hero-content').classList.add('show'),400); 
+});
+
+// Section reveal
+const sections=document.querySelectorAll('.section');
+function isInViewport(el,offset=150){ 
+  const r=el.getBoundingClientRect(); 
+  return r.top<=(window.innerHeight-offset); 
+}
+function revealOnScroll(){ 
+  sections.forEach(s=>{if(isInViewport(s)) s.classList.add('show');}); 
+}
+window.addEventListener('scroll',revealOnScroll);
+
+// Dark mode
+const darkModeToggle=document.getElementById("darkModeToggle");
+darkModeToggle.addEventListener("change",()=>{
+  document.body.classList.toggle("dark",darkModeToggle.checked);
+});
+
+// Typing effect
+const text="Welcome to my hobby world! Explore my passions for reading, podcasts, and traveling.";
+const typingElement=document.getElementById("typing-text");
+let index=0;
+function typeWriter(){
+  if(index<text.length){
+    typingElement.value+=text.charAt(index);
+    index++;
+    setTimeout(typeWriter,15);
+  }
+}
+document.getElementById("about").addEventListener("mouseenter",()=>{
+  if(index===0) typeWriter();
+});
+
+// Back to top
+document.getElementById("backToTop")
+.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+// Particles
+tsParticles.load("particles-js", {
+  particles: {
+    number:{value:60},
+    size:{value:3},
+    move:{enable:true,speed:1},
+    color:{value:"#ffba6b"},
+    opacity:{value:0.6},
+    links:{enable:true,distance:120,color:"#ffba6b",opacity:0.3,width:1}
+  },
+  interactivity:{events:{onhover:{enable:true,mode:"repulse"}}},
+  detectRetina:true
+});
+
+/* ================= MINI GAME SCRIPT ================= */
+
+const target=document.getElementById("target");
+const gameArea=document.getElementById("gameArea");
+const scoreDisplay=document.getElementById("score");
+const timeDisplay=document.getElementById("time");
+const highScoreDisplay=document.getElementById("highScore");
+const message=document.getElementById("gameMessage");
+
+let score=0;
+let timeLeft=30;
+let gameInterval;
+let timerInterval;
+let gameRunning=false;
+
+const icons=["📚","🎧","✈️"];
+
+let highScore=localStorage.getItem("hobbyHighScore") || 0;
+highScoreDisplay.textContent=highScore;
+
+function moveTarget(){
+  const maxX=gameArea.clientWidth-50;
+  const maxY=gameArea.clientHeight-50;
+  target.style.left=Math.random()*maxX+"px";
+  target.style.top=Math.random()*maxY+"px";
+  target.textContent=icons[Math.floor(Math.random()*icons.length)];
+}
+
+function startGame(){
+  if(gameRunning) return;
+  gameRunning=true;
+
+  score=0;
+  timeLeft=30;
+  scoreDisplay.textContent=score;
+  timeDisplay.textContent=timeLeft;
+  message.textContent="Game Started!";
+  message.style.color="inherit";
+
+  moveTarget();
+  gameInterval=setInterval(moveTarget,800);
+
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    timeDisplay.textContent=timeLeft;
+    if(timeLeft<=0) endGame();
+  },1000);
+}
+
+function endGame(){
+  clearInterval(gameInterval);
+  clearInterval(timerInterval);
+  gameRunning=false;
+
+  if(score>highScore){
+    highScore=score;
+    localStorage.setItem("hobbyHighScore",highScore);
+  }
+
+  highScoreDisplay.textContent=highScore;
+  message.textContent="⏰ Time's up! Final Score: "+score;
+  message.style.color=score>=15?"green":"red";
+}
+
+function resetGame(){
+  clearInterval(gameInterval);
+  clearInterval(timerInterval);
+  gameRunning=false;
+  score=0;
+  timeLeft=30;
+  scoreDisplay.textContent=score;
+  timeDisplay.textContent=timeLeft;
+  message.textContent="Game reset. Press Start!";
+  message.style.color="inherit";
+}
+
+target.addEventListener("click",()=>{
+  if(!gameRunning) return;
+  score++;
+  scoreDisplay.textContent=score;
+  moveTarget();
+});
+
+document.getElementById("startGame").onclick=startGame;
+document.getElementById("resetGame").onclick=resetGame;
+
+</script>
+
+</body>
+</html>

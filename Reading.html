@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY HOBBIES - Reading</title>
+<link rel="stylesheet" href="Readingstyle.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="progressBar"></div>
+
+<nav class="navbar" id="navbar">
+  <div class="logo">MY HOBBIES - READING</div>
+  <div class="nav-links">
+    <a href="Home.html">HoMe</a>
+    <a href="Reading.html" class="active">ReAdInG</a>
+    <a href="Listening to podcasts.html">LiStEnInG To PoDcAsTs</a>
+    <a href="Traveling.html">TrAvElInG</a>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="darkModeToggle">
+    <span class="slider"></span>
+  </label>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <canvas id="particles-js"></canvas>
+  <div class="hero-content" id="hero-content">
+    <h1>My Hobby: Reading</h1>
+    <p>Dive into the world of books — imagination, knowledge, and adventure waiting on every page.</p>
+    <button class="see-more" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">See More ↓</button>
+  </div>
+</div>
+
+<!-- Sections -->
+<section class="section" id="about">
+  <h2>What Is Reading?</h2>
+  <p>Reading is an immersive activity that allows me to explore new worlds, understand different cultures, and expand my knowledge on various subjects. Whether it's a thrilling mystery, a heartfelt romance, or a thought-provoking non-fiction book, reading offers a rich escape from reality and challenges my mind.</p>
+  <div class="feature-card">
+    <a href = "https://asian-reviews.com/2023/11/24/reading-fiction-has-more-benefits-than-you-would-have-ever-imagined/">
+    <img src="reading-books.webp" alt="Reading Books">
+  </div>
+</section>
+
+<section class="section">
+  <h2>Why I Enjoy Reading</h2>
+  <p>Reading provides a mental retreat. It's not just about escaping into fictional worlds, but also about discovering different perspectives. It deepens my understanding of human experiences, challenges my views, and has become a source of relaxation and personal growth. Reading also improves focus, which is essential in this fast-paced world.</p>
+  <div class="feature-card">
+    <a href = "https://medium.com/@joao.ppm2000/how-reading-helps-me-escape-reality-through-the-power-of-immersion-eeb187a439fc">
+     <img src="cozy-reading-space.jpg" alt="Cozy Reading Space"> </a>
+  </div>
+</section>
+
+<section class="section">
+  <h2>My Reading Journey</h2>
+  <p>I've been reading since I was a child, but my passion for books really took off in my teenage years. Over the past few years, I have made reading a consistent part of my life. In 2024, I set myself a challenge to read 50 books, and I successfully reached that goal! Some of my favorite genres include fiction, self-development, and historical novels.</p>
+  <div class="feature-card">
+  <a href = "https://www.facebook.com/groups/thebookhangoutspot/posts/2222769481239357/">
+    <img src="reading-cup.webp" alt="Reading with Tea"> </a>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Reading Schedule & Achievements</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Equipment</th>
+        <th>Schedule</th>
+        <th>Achievements</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bookshelf, Kindle, Bookmark Collection</td>
+        <td>1-2 hours a day, usually before bed</td>
+        <td>Read 50+ books in 2024, Completed a 100-book challenge in 2023</td>
+      </tr>
+      <tr>
+        <td>Goodreads, Reading Journal</td>
+        <td>Weekend: 3-4 hours</td>
+        <td>Read 10 series and explored 4 new genres this year</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <div class="tips">
+    <h3>Reading Tips</h3>
+    <p>Start with short books or audiobooks to build a habit. Keep a reading journal to document thoughts on each book. If you’re busy, try reading during commute times or listening to audiobooks when exercising!</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Fun Fact</h2>
+  <p>The longest novel ever written is “In Search of Lost Time” by Marcel Proust, with a word count exceeding <strong>1.2 million words</strong>! It would take months to finish if you read one chapter a day!</p>
+</section>
+
+<footer id="footer">&copy; 2025 My Hobby Website | Thanawat Chainarongsakul | READING</footer>
+
+<button id="backToTop" title="Go to top">↑</button>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.min.js"></script>
+<script>
+// Navbar scroll & hide
+const navbar=document.getElementById("navbar");
+let lastScroll=0;
+window.addEventListener("scroll", ()=>{
+  let currentScroll=window.pageYOffset;
+  if(currentScroll>lastScroll && currentScroll>100){ navbar.classList.add("hide"); }
+  else { navbar.classList.remove("hide"); }
+  lastScroll=currentScroll;
+  navbar.classList.toggle("scrolled", currentScroll>70);
+
+  document.getElementById("backToTop").style.display=(currentScroll>200)?"block":"none";
+  let scrollHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  document.getElementById("progressBar").style.width=(currentScroll/scrollHeight)*100+"%";
+});
+
+// Hero fade
+window.addEventListener("load", ()=>{ setTimeout(()=>document.getElementById('hero-content').classList.add('show'),400); });
+
+// Section reveal
+const sections = document.querySelectorAll('.section');
+function isInViewport(el,offset=150){ const r=el.getBoundingClientRect(); return r.top<=(window.innerHeight-offset); }
+function revealOnScroll(){ sections.forEach(s=>{if(isInViewport(s)) s.classList.add('show');}); }
+window.addEventListener('scroll',revealOnScroll);
+
+// Dark mode toggle
+const darkModeToggle=document.getElementById("darkModeToggle");
+darkModeToggle.addEventListener("change",()=>{ document.body.classList.toggle("dark",darkModeToggle.checked); });
+
+// Back to top button
+document.getElementById("backToTop").onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+// Particles
+tsParticles.load("particles-js", {
+  particles: {
+    number: { value: 50 },
+    size: { value: 3 },
+    move: { enable: true, speed: 1 },
+    color: { value: "#ffba6b" },
+    opacity: { value: 0.6 },
+    links: { enable: true, distance: 120, color: "#ffba6b", opacity:0.3, width:1 }
+  },
+  interactivity: { events: { onhover: { enable: true, mode: "repulse" } } },
+  detectRetina:true
+});
+</script>
+</body>
+</html>

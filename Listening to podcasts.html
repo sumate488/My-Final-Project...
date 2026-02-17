@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY HOBBIES - Listening to Podcasts</title>
+<link rel="stylesheet" href="Listening to podcastsstyle.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="progressBar"></div>
+
+<nav class="navbar" id="navbar">
+  <div class="logo">MY HOBBIES - LISTENING TO PODCASTS</div>
+  <div class="nav-links">
+    <a href="Home.html">HoMe</a>
+    <a href="Reading.html">ReAdInG</a>
+    <a href="Listening to podcasts.html" class="active">LiStEnInG To PoDcAsTs</a>
+    <a href="Traveling.html">TrAvElInG</a>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="darkModeToggle">
+    <span class="slider"></span>
+  </label>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content" id="hero-content">
+    <h1>My Hobby: Listening to Podcasts</h1>
+    <p>Engage your mind while on the go. Discover thought-provoking, educational, and entertaining podcasts.</p>
+    <button class="see-more" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">See More ↓</button>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <h2>What Is Listening to Podcasts?</h2>
+  <p>Podcasts are an incredible way to consume knowledge, entertainment, and storytelling in audio format. You can listen anytime — cooking, commuting, or exercising. From true crime to self-help to history, there’s a podcast for almost any interest!</p>
+  <div class="feature-card"><a href = "https://oreateai.com/blog/understanding-podcasts-a-journey-into-the-world-of-audio-storytelling/6bba70f71fc9e7bffd1c3d065271eeb2"><img src="AdobeStock_122719146-1024x683.jpeg" alt="Listening to Podcasts"></div>
+</section>
+
+<section class="section">
+  <h2>Why I Enjoy Podcasts</h2>
+  <p>I’ve been listening for years. Podcasts are part of my daily routine, helping me learn, relax, and connect with ideas while multitasking. I enjoy diverse topics and hearing stories from professionals and everyday people alike.</p>
+  <div class="feature-card"><a href = "https://medium.com/@christiesausams/does-listening-to-podcasts-and-music-increase-productivity-bfa8a332c0b5"><img src="Podcast Studio.webp" alt="Podcast Studio"></div>
+</section>
+
+<section class="section">
+  <h2>Listening Schedule & Achievements</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Equipment</th>
+        <th>Schedule</th>
+        <th>Achievements</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Smartphone, Headphones, Spotify, Apple Podcasts</td>
+        <td>30 min daily, 2-3 hrs weekends</td>
+        <td>300+ episodes, 10 new genres discovered</td>
+      </tr>
+      <tr>
+        <td>Google Home, Smartwatch</td>
+        <td>While commuting, 1 hr per session</td>
+        <td>Followed 5 series consistently for 6 months</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <div class="tips">
+    <h3>Podcast Listening Tips</h3>
+    <p>Start with short episodes (15-30 min). Use speed controls to adjust pace. Subscribe to similar-themed podcasts to keep recommendations relevant!</p>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Fun Fact</h2>
+  <p>The first podcast episode was uploaded in <strong>2004</strong> by Dave Winer and Adam Curry. Today, millions of podcasts exist worldwide!</p>
+</section>
+
+<footer id="footer">&copy; 2025 My Hobby Website | Thanawat Chainarongsakul | LISTENING TO PODCASTS</footer>
+<button id="backToTop" title="Go to top">↑</button>
+
+<script>
+const navbar=document.getElementById('navbar');
+let lastScroll=0;
+window.addEventListener('scroll',()=>{
+  const currentScroll=window.pageYOffset;
+  if(currentScroll>lastScroll && currentScroll>100){ navbar.classList.add('hide'); }
+  else{ navbar.classList.remove('hide'); }
+  lastScroll=currentScroll;
+  navbar.classList.toggle('scrolled',currentScroll>70);
+
+  document.getElementById("backToTop").style.display=(currentScroll>200)?"block":"none";
+  const scrollHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  document.getElementById("progressBar").style.width=(currentScroll/scrollHeight)*100+"%";
+});
+
+const heroContent=document.getElementById('hero-content');
+window.addEventListener('load',()=>{ setTimeout(()=>heroContent.classList.add('show'),400); revealSections(); });
+
+const sections=document.querySelectorAll('.section');
+const footer=document.getElementById('footer');
+function isInViewport(el,offset=150){ const r=el.getBoundingClientRect(); return r.top<=(window.innerHeight-offset); }
+function revealSections(){
+  sections.forEach(s=>{if(isInViewport(s)) s.classList.add('show');});
+  if(isInViewport(footer,100)) footer.classList.add('show');
+}
+window.addEventListener('scroll',revealSections);
+
+const backToTop=document.getElementById('backToTop');
+backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+document.getElementById('darkModeToggle').addEventListener('change',()=>{ document.body.classList.toggle('dark'); });
+</script>
+</body>
+</html>
